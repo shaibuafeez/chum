@@ -38,19 +38,42 @@
   .btn-ghost{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--text)}
   .btn-ghost:hover{border-color:rgba(255,255,255,.32)}
 
-  /* nav */
-  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(14,14,16,.6);border-bottom:1px solid var(--line-soft)}
-  .nav-in{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-  .logo{display:flex;align-items:center;gap:10px;font-family:"Clash Display";font-weight:700;font-size:22px;letter-spacing:-.02em}
-  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--pink);box-shadow:0 0 18px rgba(255,92,156,.7)}
-  .nav-links{display:flex;gap:6px;align-items:center}
-  .nav-links a{padding:8px 13px;border-radius:999px;color:var(--dim);font-size:14px;font-weight:500;transition:.2s}
-  .nav-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
-  .nav-cta{display:flex;gap:10px;align-items:center}
-  @media(max-width:820px){.nav-links{display:none}.nav-cta .btn-ghost{display:none}}
+  /* ===== award nav ===== */
+  .nav-shell{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:16px 20px;pointer-events:none;transition:padding .3s ease}
+  .nav-shell.scrolled{padding-top:9px}
+  .nav{pointer-events:auto;width:100%;max-width:var(--maxw);display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:9px 9px 9px 20px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(18,17,22,.5);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+    box-shadow:0 8px 30px rgba(0,0,0,.26);transition:background .3s ease,box-shadow .3s ease,border-color .3s ease}
+  .nav-shell.scrolled .nav{background:rgba(16,15,19,.82);box-shadow:0 16px 46px rgba(0,0,0,.5);border-color:rgba(255,255,255,.14)}
+  .logo{display:flex;align-items:center;gap:9px;font-family:"Clash Display";font-weight:700;font-size:21px;letter-spacing:-.02em;color:var(--text)}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--pink);animation:dotpulse 2.6s ease-in-out infinite}
+  @keyframes dotpulse{0%,100%{box-shadow:0 0 9px rgba(255,92,156,.55)}50%{box-shadow:0 0 20px rgba(255,92,156,.95)}}
+  .logo .beta{font-family:"JetBrains Mono";font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);border:1px solid rgba(255,92,156,.38);border-radius:5px;padding:2px 5px;margin-left:2px;font-weight:500}
+  .nav-center{position:relative;display:flex;gap:2px}
+  .nav-indicator{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);opacity:0;transition:left .4s cubic-bezier(.4,0,.2,1),width .4s cubic-bezier(.4,0,.2,1),opacity .3s ease;z-index:0}
+  .nav-link{position:relative;z-index:1;padding:9px 16px;border-radius:999px;color:var(--dim);font-size:14px;font-weight:500;transition:color .25s ease;white-space:nowrap}
+  .nav-link:hover,.nav-link.active{color:var(--text)}
+  .nav-right{display:flex;align-items:center;gap:10px}
+  .btn-cta{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:#1a0410;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;transition:transform .2s ease,box-shadow .3s ease,background .2s ease;box-shadow:0 6px 20px rgba(255,92,156,.26)}
+  .btn-cta:hover{transform:translateY(-1px);background:#ff74ac;box-shadow:0 12px 30px rgba(255,92,156,.45)}
+  .btn-cta .arw{transition:transform .25s ease}
+  .btn-cta:hover .arw{transform:translateX(4px)}
+  .nav-burger{display:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;position:relative}
+  .nav-burger span{position:absolute;left:11px;right:11px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s ease,opacity .3s ease}
+  .nav-burger span:first-child{top:15px}.nav-burger span:last-child{bottom:15px}
+  .nav-burger.open span:first-child{transform:translateY(5px) rotate(45deg)}
+  .nav-burger.open span:last-child{transform:translateY(-5px) rotate(-45deg)}
+  .nav-mobile{pointer-events:none;position:absolute;top:calc(100% - 4px);left:20px;right:20px;display:flex;flex-direction:column;gap:3px;padding:12px;border-radius:22px;border:1px solid var(--line);background:rgba(16,15,19,.94);backdrop-filter:blur(18px);box-shadow:0 22px 54px rgba(0,0,0,.55);opacity:0;transform:translateY(-10px) scale(.98);transition:opacity .28s ease,transform .28s ease}
+  .nav-mobile.open{opacity:1;transform:none;pointer-events:auto}
+  .nav-mobile a{padding:13px 16px;border-radius:14px;color:var(--dim);font-weight:500;transition:.2s}
+  .nav-mobile a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+  .nav-mobile .btn-cta.mob{justify-content:center;margin-top:6px}
+  @media(max-width:860px){.nav-center{display:none}.nav-right .btn-cta{display:none}.nav-burger{display:block}}
+  @media(min-width:861px){.nav-mobile{display:none}}
 
   /* hero */
-  .hero{padding:78px 0 40px;text-align:center}
+  .hero{padding:122px 0 40px;text-align:center}
   .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:"JetBrains Mono";font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);border:1px solid var(--line);background:rgba(255,92,156,.06);padding:8px 15px;border-radius:999px;margin-bottom:26px}
   .eyebrow .lg{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}
   h1.hero-h{font-size:clamp(44px,7.4vw,86px);font-weight:800;max-width:15ch;margin:0 auto;text-wrap:balance}
@@ -77,7 +100,7 @@
   .proof-in b{color:var(--text);font-family:"Clash Display"}
 
   /* sections */
-  section{padding:96px 0;position:relative}
+  section{padding:96px 0;position:relative;scroll-margin-top:104px}
   .tag{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);margin-bottom:16px}
   .feat{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
   .feat.rev .feat-media{order:-1}
@@ -135,21 +158,29 @@
 </head>
 <body>
 
-<nav>
-  <div class="nav-in">
-    <a class="logo" href="#top"><span class="dot"></span>chum</a>
-    <div class="nav-links">
-      <a href="#wingman">Wingman</a>
-      <a href="#coach">Coach</a>
-      <a href="#privacy">Privacy</a>
-      <a href="#own">Ownership</a>
+<div class="nav-shell" id="navShell">
+  <nav class="nav">
+    <a class="logo" href="#top"><span class="dot"></span>chum<span class="beta">beta</span></a>
+    <div class="nav-center" id="navCenter">
+      <span class="nav-indicator" id="navIndicator"></span>
+      <a class="nav-link" href="#wingman">Wingman</a>
+      <a class="nav-link" href="#coach">Coach</a>
+      <a class="nav-link" href="#privacy">Privacy</a>
+      <a class="nav-link" href="#own">Ownership</a>
     </div>
-    <div class="nav-cta">
-      <a class="btn btn-ghost" href="#privacy">How it works</a>
-      <a class="btn btn-primary" href="#beta">Get early access</a>
+    <div class="nav-right">
+      <a class="btn-cta" href="#beta">Get early access <span class="arw">→</span></a>
+      <button class="nav-burger" id="navBurger" aria-label="Open menu"><span></span><span></span></button>
     </div>
+  </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#wingman">Wingman</a>
+    <a href="#coach">Coach</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#own">Ownership</a>
+    <a class="btn-cta mob" href="#beta">Get early access →</a>
   </div>
-</nav>
+</div>
 
 <main id="top">
 
@@ -303,6 +334,28 @@
     msg.textContent = "Opening your mail app to confirm — you're almost in ✦";
     window.location.href = 'mailto:exorbilabs@gmail.com?subject=' + encodeURIComponent('Chum beta waitlist') + '&body=' + encodeURIComponent('Add me to the Chum beta: ' + email);
   });
+
+  // ===== award nav: sliding indicator + scrollspy + mobile =====
+  (function(){
+    var shell=document.getElementById('navShell');
+    var center=document.getElementById('navCenter');
+    var indicator=document.getElementById('navIndicator');
+    var links=[].slice.call(document.querySelectorAll('.nav-center .nav-link'));
+    var burger=document.getElementById('navBurger');
+    var mobile=document.getElementById('navMobile');
+    var active=null;
+    function place(el,show){ if(!el){indicator.style.opacity=0;return;} indicator.style.left=el.offsetLeft+'px'; indicator.style.width=el.offsetWidth+'px'; indicator.style.opacity=show?1:0; }
+    links.forEach(function(l){ l.addEventListener('mouseenter',function(){ place(l,true); }); });
+    center.addEventListener('mouseleave',function(){ place(active,!!active); });
+    var map={}; links.forEach(function(l){ map[l.getAttribute('href').slice(1)]=l; });
+    var secs=Object.keys(map).map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(x){ x.classList.remove('active'); }); var l=map[e.target.id]; if(l){ l.classList.add('active'); active=l; if(!center.matches(':hover')) place(l,true); } } }); },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+    secs.forEach(function(s){ io.observe(s); });
+    addEventListener('scroll',function(){ shell.classList.toggle('scrolled', scrollY>14); if(scrollY<200){ links.forEach(function(x){ x.classList.remove('active'); }); active=null; if(!center.matches(':hover')) place(null,false); } },{passive:true});
+    addEventListener('resize',function(){ place(active,!!active); });
+    burger.addEventListener('click',function(){ burger.classList.toggle('open'); mobile.classList.toggle('open'); });
+    mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ burger.classList.remove('open'); mobile.classList.remove('open'); }); });
+  })();
 </script>
 </body>
 </html>
